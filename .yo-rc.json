@@ -1,0 +1,8 @@
+{
+  "generator-react-webpack": {
+    "appName": "musicApp",
+    "style": "less",
+    "postcss": false,
+    "generatedWithVersion": 3
+  }
+}
