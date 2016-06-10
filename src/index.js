@@ -1,7 +1,14 @@
 import 'core-js/fn/object/assign';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/Main';
+import Main from './components/Main';
+import SearchPage from './components/SearchPage';
 
 // Render the main component into the dom
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Main>
+    <SearchPage />
+  </Main>,
+  document.getElementById('app')
+);
+
