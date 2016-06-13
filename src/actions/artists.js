@@ -26,6 +26,11 @@ export const searchArtists = name => dispatch => {
     });
   }
 
+  // If there's no name, don't even reach the network
+  if (!name) {
+    return Promise.resolve(onSuccess({ artists: { items: [] } }));
+  }
+
   const query = encodeURIComponent(name);
 
   fetch(`https://api.spotify.com/v1/search?type=artist&q=${query}`)

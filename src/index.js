@@ -3,18 +3,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import Main from './components/Main';
-import SearchPage from './containers/SearchPage';
+import { Router, hashHistory } from 'react-router'
+import routes from './routes';
 
 const store = configureStore();
 
 // Render the main component into the dom
 ReactDOM.render(
   <Provider store={store}>
-    <Main>
-      <SearchPage />
-    </Main>
+    <Router routes={routes} history={hashHistory} />
   </Provider>,
   document.getElementById('app')
 );
-
