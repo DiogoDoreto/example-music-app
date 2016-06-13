@@ -3,7 +3,7 @@ import { getArtist, getLastArtistQuery } from '../reducers';
 
 export const searchArtists = name => (dispatch, getState) => {
   const lastQuery = getLastArtistQuery(getState());
-  if (lastQuery === name) {
+  if (!name || lastQuery === name) {
     return;
   }
 
@@ -23,11 +23,6 @@ export const searchArtists = name => (dispatch, getState) => {
       error: true,
       payload: err
     });
-  }
-
-  // If there's no name, don't even reach the network
-  if (!name) {
-    return Promise.resolve(onSuccess({ artists: { items: [] } }));
   }
 
   const query = encodeURIComponent(name);

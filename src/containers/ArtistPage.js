@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { updateTitle } from '../routes';
 import { fetchArtistIfNeeded } from '../actions/artists';
-import { getArtist } from '../reducers';
+import { fetchAlbumsIfNeeded } from '../actions/albums';
+import { getArtist, getAlbums } from '../reducers';
 import Artist from '../components/Artist';
+import AlbumsList from '../components/AlbumsList';
 
 class ArtistPage extends React.Component {
   componentDidMount() {
     const { id } = this.props.params;
     this.props.fetchArtistIfNeeded(id);
+    this.props.fetchAlbumsIfNeeded(id);
     this.updatePageTitle();
   }
 
@@ -24,6 +27,7 @@ class ArtistPage extends React.Component {
     const previousId = prevProps.params.id;
     if (currentId !== previousId) {
       this.props.fetchArtistIfNeeded(currentId);
+      this.props.fetchAlbumsIfNeeded(currentId);
     }
   }
 
@@ -35,11 +39,12 @@ class ArtistPage extends React.Component {
   }
 
   render() {
-    const { artist } = this.props;
+    const { artist, albums } = this.props;
 
     return (
       <div className="artist-page">
         <Artist artist={artist} />
+        <AlbumsList albums={albums} />
       </div>
     );
   }
@@ -50,12 +55,14 @@ const mapStateToProps = (state, props) => {
 
   return {
     artistId,
-    artist: getArtist(state, artistId)
+    artist: getArtist(state, artistId),
+    albums: getAlbums(state, artistId)
   };
 };
 
 const actions = {
-  fetchArtistIfNeeded
+  fetchArtistIfNeeded,
+  fetchAlbumsIfNeeded
 };
 
 export default withRouter(connect(mapStateToProps, actions)(ArtistPage));
