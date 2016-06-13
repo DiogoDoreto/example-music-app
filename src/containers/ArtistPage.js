@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { updateTitle } from '../routes';
 import { fetchArtistIfNeeded } from '../actions/artists';
 import { getArtist } from '../reducers';
+import Artist from '../components/Artist';
 
 class ArtistPage extends React.Component {
   componentDidMount() {
@@ -34,10 +35,11 @@ class ArtistPage extends React.Component {
   }
 
   render() {
+    const { artist } = this.props;
+
     return (
       <div className="artist-page">
-        <p>ID: { this.props.artistId }</p>
-        <p>Name: { this.props.artist && this.props.artist.name }</p>
+        <Artist artist={artist} />
       </div>
     );
   }
