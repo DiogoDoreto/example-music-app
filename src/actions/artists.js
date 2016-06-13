@@ -1,20 +1,19 @@
-function parseResponse(res) {
-  if (res.ok) {
-    return res.json();
+import parseResponse from '../utils/parseResponse';
+import { getArtist, getLastArtistQuery } from '../reducers';
+
+export const searchArtists = name => (dispatch, getState) => {
+  const lastQuery = getLastArtistQuery(getState());
+  if (lastQuery === name) {
+    return;
   }
 
-  const err = new Error(res.statusText);
-  err.response = res;
-  throw err;
-}
-
-export const searchArtists = name => dispatch => {
   dispatch({ type: 'SEARCH_ARTISTS_REQUEST', payload: name });
 
   function onSuccess(data) {
     dispatch({
       type: 'SEARCH_ARTISTS_SUCCESS',
-      payload: data.artists
+      payload: data.artists,
+      meta: { query: name }
     });
   }
 
@@ -34,6 +33,34 @@ export const searchArtists = name => dispatch => {
   const query = encodeURIComponent(name);
 
   fetch(`https://api.spotify.com/v1/search?type=artist&q=${query}`)
+    .then(parseResponse)
+    .then(onSuccess, onFailure);
+};
+
+export const fetchArtistIfNeeded = artistId => (dispatch, getState) => {
+  const artist = getArtist(getState(), artistId);
+  if (artist) {
+    return Promise.resolve(artist);
+  }
+
+  dispatch({ type: 'FETCH_ARTIST_REQUEST', payload: artistId });
+
+  function onSuccess(data) {
+    dispatch({
+      type: 'FETCH_ARTIST_SUCCESS',
+      payload: data
+    });
+  }
+
+  function onFailure(err) {
+    dispatch({
+      type: 'FETCH_ARTIST_FAILURE',
+      error: true,
+      payload: err
+    });
+  }
+
+  fetch(`https://api.spotify.com/v1/artists/${artistId}`)
     .then(parseResponse)
     .then(onSuccess, onFailure);
 };

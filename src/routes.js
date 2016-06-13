@@ -2,8 +2,9 @@ import React from 'react';
 import { Route, IndexRedirect } from 'react-router';
 import Main from './components/Main';
 import SearchPage from './containers/SearchPage';
+import ArtistPage from './containers/ArtistPage';
 
-const updateTitle = prefix => document.title = `${prefix} | Music App`;
+export const updateTitle = prefix => document.title = `${prefix} | Music App`;
 
 const onEnterSearch = nextState => {
   const { query } = nextState.params;
@@ -18,6 +19,10 @@ export default (
       path="search(/:query)"
       component={SearchPage}
       onEnter={onEnterSearch}
+    />
+    <Route
+      path="artist/:id"
+      component={ArtistPage}
     />
   </Route>
 );
