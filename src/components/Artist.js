@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import '../styles/Artist.less';
+
 const Artist = ({ artist }) => {
   if (!artist) {
     return null;
@@ -13,8 +15,8 @@ const Artist = ({ artist }) => {
   return (
     <div className="artist">
       <img className="artist-thumbnail" src={thumbnailUrl} alt={artist.name} />
-      <h2>
-        <Link className="artist-name" to={`/artist/${artist.id}`}>
+      <h2 className="artist-name">
+        <Link to={`/artist/${artist.id}`}>
           {artist.name}
         </Link>
       </h2>

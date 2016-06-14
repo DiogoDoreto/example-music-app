@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '../styles/SearchForm.less';
+
 class SearchForm extends React.Component {
   constructor(props, context) {
     super(props, context);

@@ -1,0 +1,49 @@
+.artist {
+  border-bottom: 1px solid #ccc;
+  padding: 20px 30px;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.artist-thumbnail {
+  float: left;
+  width: 120px;
+}
+
+.artist-name {
+  margin: 0 0 20px 130px;
+
+  a {
+    color: #000;
+    text-decoration: none;
+
+    &::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+
+.artist-genres {
+  margin: 0;
+  margin-left: 130px;
+  padding: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 5px;
+    padding: 2px 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+}
